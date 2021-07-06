@@ -1,19 +1,26 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  components: {},
+  data() {
+    return {
+      age: 20,
+    };
+  },
+  mounted() {
+    let url =
+      "https://www.easy-mock/mock/5b012c1fe6e1035843cd3aff/mockapi/table/list";
+    axios.get(url).then(() => {});
+  },
+};
 </script>
 
 <style>
