@@ -5,20 +5,22 @@
 </template>
 
 <script>
-import axios from "axios";
+import storage from "./storage/index";
 
 export default {
   name: "App",
   components: {},
   data() {
-    return {
-      age: 20,
-    };
+    return {};
   },
   mounted() {
-    let url =
-      "https://www.easy-mock/mock/5b012c1fe6e1035843cd3aff/mockapi/table/list";
-    axios.get(url).then(() => {});
+    // storage.setItem("abb", 1);
+    // storage.setItem("abc", { a: 1 }, "user");
+    // storage.setItem("abb_a", { fi: 1 }, "user");
+    // storage.setItem("abc", {});
+    // storage.setItem("abc_a", { fc: 2 }, "abc");
+    console.log(storage.getItem("a", "user"));
+    // storage.clear("abc");
   },
 };
 </script>
