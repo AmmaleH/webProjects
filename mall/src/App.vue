@@ -6,6 +6,7 @@
 
 <script>
 // import storage from "./storage/index";
+// 随便加的一点东西，做git分支的测试用
 
 export default {
   name: "App",
