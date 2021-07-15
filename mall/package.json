@@ -21,6 +21,7 @@
     "element-ui": "^2.15.3",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "mockjs": "^1.1.0",
     "node-sass": "^6.0.1",
     "sass-loader": "^12.1.0",
     "vue-awesome-swiper": "^4.1.1",

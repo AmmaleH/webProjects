@@ -4,14 +4,23 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 // 有 ./ 会去相应的路径里面找，没有的话会被认为是一个插件
 import router from './router'
-import env from './env'
+// import env from './env'
+// 
+// mock开关
+const mock = true;
+// import：预编译加载，在编译的时候import的文件就会被加载，写入到内存当中。
+// require: 在执行的时候才去加载。若mock为false，则不会被加载。
+if (mock) {
+  require('./mock/api');
+}
 
 // 根据前端的跨域方式做调整
 // cors、jsonp跨域时要写完整的url，代理跨域时只用 /api
-axios.default.baseURL = '/api';
-axios.default.timeout = 8000;
+axios.defaults.baseURL = '/api';
+axios.defaults.timeout = 8000;
 // 根据环境变量获取不同的请求地址
-axios.default.baseURL = env.baseURL;
+// axios.default.baseURL = env.baseURL;
+
 // 接口错误拦截
 axios.interceptors.response.use(function (response) {
   let res = response.data;
