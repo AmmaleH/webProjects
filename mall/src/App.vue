@@ -6,7 +6,6 @@
 
 <script>
 // import storage from "./storage/index";
-// 随便加的一点东西，做git分支的测试用
 
 export default {
   name: "App",
@@ -49,13 +48,11 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+/* 全局引用 */
+@import "./assets/scss/reset.scss";
+@import "./assets/scss/config.scss";
+@import "./assets/scss/button.scss";
+@import "./assets/scss/mixin.scss";
+@import "./assets/scss/modal.scss";
 </style>

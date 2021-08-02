@@ -1,9 +1,10 @@
 import Vue from 'vue'
-import App from './App.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueLazyLoad from 'vue-lazyload'
 // 有 ./ 会去相应的路径里面找，没有的话会被认为是一个插件
 import router from './router'
+import App from './App.vue'
 // import env from './env'
 // 
 // mock开关
@@ -24,7 +25,7 @@ axios.defaults.timeout = 8000;
 // 接口错误拦截
 axios.interceptors.response.use(function (response) {
   let res = response.data;
-  if (res.status == 0) {    // 成功返回数据
+  if (res.status == 0) {    // 成功返回数据，统一做了拦截
     return res.data;
   } else if (res.status == 10) {    // 未登录时
     // 由于路由是挂载在vue实例上的，不能使用 this.$router.push(url)去跳转，只能在 *.vue文件中才能用
@@ -35,6 +36,9 @@ axios.interceptors.response.use(function (response) {
 });
 
 Vue.use(VueAxios, axios);
+Vue.use(VueLazyLoad, {
+  loading: '/imgs/loading-svg/loading-bars.svg'
+});
 Vue.config.productionTip = false
 
 new Vue({
