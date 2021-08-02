@@ -165,7 +165,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "./../assets/scss/base.scss";
 @import "./../assets/scss/mixin.scss";
 @import "./../assets/scss/config.scss";
@@ -257,6 +257,7 @@ export default {
             box-shadow: 0px 7px 6px 0px rgba(0, 0, 0, 0.11);
             z-index: 10;
             transition: all 0.2s;
+            background-color: #fff;
             .product {
               position: relative;
               float: left;
