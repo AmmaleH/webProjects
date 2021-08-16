@@ -11,9 +11,10 @@
         <div class="topbar-user">
           <a href="javascript:;" v-if="username">{{ username }}</a>
           <a href="javascript:;" v-if="!username" v-on:click="login()">登录</a>
-          <a href="javascript:;" v-if="username">我的订单</a>
+          <a href="javascript:;" v-if="username" v-on:click="logout()">退出</a>
+          <a href="/#/order/list" v-if="username">我的订单</a>
           <a href="javascript:;" class="my-cart" v-on:click="goToCart()"
-            ><span class="icon-cart"></span>购物车</a
+            ><span class="icon-cart"></span>购物车{{ cartCount }}</a
           >
         </div>
       </div>
@@ -28,58 +29,17 @@
             <span>小米手机</span>
             <div class="children">
               <ul>
-                <li class="product">
-                  <a href="javascript:;" target="_blank">
+                <li
+                  class="product"
+                  v-for="(item, key) in miPhoneList"
+                  :key="key"
+                >
+                  <a v-bind:href="'/#/product/' + item.id" target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-1.png" alt="" />
+                      <img :src="item.img" alt="" />
                     </div>
-                    <div class="pro-name">小米手机1</div>
-                    <div class="pro-price">1999</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="javascript:;" target="_blank">
-                    <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-2.png" alt="" />
-                    </div>
-                    <div class="pro-name">小米手机2</div>
-                    <div class="pro-price">1599</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="javascript:;" target="_blank">
-                    <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-3.png" alt="" />
-                    </div>
-                    <div class="pro-name">小米手机3</div>
-                    <div class="pro-price">2899</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="javascript:;" target="_blank">
-                    <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-4.png" alt="" />
-                    </div>
-                    <div class="pro-name">小米手机4</div>
-                    <div class="pro-price">3499</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="javascript:;" target="_blank">
-                    <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-5.png" alt="" />
-                    </div>
-                    <div class="pro-name">小米手机5</div>
-                    <div class="pro-price">1899</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="javascript:;" target="_blank">
-                    <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-6.png" alt="" />
-                    </div>
-                    <div class="pro-name">小米手机6</div>
-                    <div class="pro-price">2699</div>
+                    <div class="pro-name">{{ item.name }}</div>
+                    <div class="pro-price">{{ item.price }}</div>
                   </a>
                 </li>
               </ul>
@@ -87,7 +47,23 @@
           </div>
           <div class="item-menu">
             <span>红米手机</span>
-            <div class="children"></div>
+            <div class="children">
+              <ul>
+                <li
+                  class="product"
+                  v-for="(item, key) in redmiPhoneList"
+                  :key="key"
+                >
+                  <a v-bind:href="'/#/product/' + item.id" target="_blank">
+                    <div class="pro-img">
+                      <img :src="item.img" alt="" />
+                    </div>
+                    <div class="pro-name">{{ item.name }}</div>
+                    <div class="pro-price">{{ item.price }}</div>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="item-menu">
             <span>电视</span>
@@ -95,13 +71,10 @@
               <ul>
                 <li
                   class="product"
-                  v-for="(item, index) of phoneList"
+                  v-for="(item, index) of tvProductList"
                   :key="index"
                 >
-                  <a
-                    v-bind:href="'/#/product/item.id' + item.id"
-                    target="_blank"
-                  >
+                  <a v-bind:href="'/#/product/' + item.id" target="_blank">
                     <div class="pro-img">
                       <img :src="item.img" alt="" />
                     </div>
@@ -125,14 +98,26 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "nav-header",
   data() {
     return {
-      username: "",
-      phoneList: [],
+      miPhoneList: [],
+      redmiPhoneList: [],
+      tvProductList: [],
       res: "",
     };
+  },
+  computed: {
+    // username() {
+    //   return this.$store.state.username;
+    // },
+    // cartCount() {
+    //   return this.$store.state.cartCount;
+    // },
+    // 利用 vuex 中的 mapState 进行解构，简化代码
+    ...mapState(["username", "cartCount"]),
   },
   filters: {
     // 过滤器
@@ -142,20 +127,57 @@ export default {
     },
   },
   mounted() {
-    this.getProductList();
+    this.getMiPhoneList();
+    this.getRedmiPhoneList();
+    this.getTvProductList();
   },
   methods: {
     login() {
       this.$router.push("/login");
     },
-    getProductList() {
+    logout() {
+      this.axios.post("/user/logout").then(() => {
+        alert("退出成功！");
+        // this.$message.success("退出成功！"); // 后端退出，清空会话
+        // 将userId清为""同时设置过期时间为-1（立即过期）。
+        this.$cookie.set("userId", "", { expires: "-1" });
+        // 清空 vuex
+        this.$store.dispatch("saveUserName", "");
+        this.$store.dispatch("saveCartCount", "0");
+      });
+      this.$router.push("/login");
+    },
+    getMiPhoneList() {
+      this.axios.get("/user/mi").then((res) => {
+        if (res.list.length > 6) {
+          this.miPhoneList = res.list.slice(0, 6); // 截取前6条
+        } else {
+          this.miPhoneList = res.list;
+        }
+        console.log("NavHeader.vue_getMiPhoneList_phoneList: ");
+        console.log(this.miPhoneList);
+      });
+    },
+    getRedmiPhoneList() {
+      this.axios.get("/user/mi").then((res) => {
+        if (res.list.length > 6) {
+          this.redmiPhoneList = res.list.slice(0, 6); // 截取前6条
+        } else {
+          this.redmiPhoneList = res.list;
+        }
+        console.log("NavHeader.vue_getRedmiPhoneList_redmiPhoneList: ");
+        console.log(this.redmiPhoneList);
+      });
+    },
+    getTvProductList() {
       this.axios.get("/user/tv").then((res) => {
         if (res.list.length > 6) {
-          this.phoneList = res.list.slice(0, 6); // 截取前6条
+          this.tvProductList = res.list.slice(0, 6); // 截取前6条
         } else {
-          this.phoneList = res.list;
+          this.tvProductList = res.list;
         }
-        console.log(this.phoneList);
+        console.log("NavHeader.vue_getProductList_productList: ");
+        console.log(this.tvProductList);
       });
     },
     goToCart() {
@@ -182,6 +204,9 @@ export default {
         display: inline-block;
         color: #b0b0b0;
         margin-right: 17px;
+        &:last-child {
+          margin-right: 0;
+        }
       }
       .my-cart {
         width: 110px;
@@ -200,30 +225,7 @@ export default {
       position: relative;
       height: 112px;
       @include flex();
-      .header-logo {
-        display: inline-block;
-        width: 55px;
-        height: 55px;
-        background-color: #ff6600;
-        a {
-          display: inline-block;
-          width: 110px;
-          height: 55px;
-          &:before {
-            content: "";
-            @include bgImg(55px, 55px, "/imgs/mi-logo.png", 55px);
-            transition: margin 0.2s;
-          }
-          &:after {
-            content: "";
-            @include bgImg(55px, 55px, "/imgs/mi-home.png", 55px);
-          }
-          &:hover {
-            margin-left: -55px;
-            transition: margin 0.2s;
-          }
-        }
-      }
+
       .header-menu {
         display: inline-block;
         width: 643px;

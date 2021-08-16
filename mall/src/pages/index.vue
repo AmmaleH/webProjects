@@ -148,7 +148,7 @@ export default {
     return {
       swiperOption: {
         autoplay: true, // 自动播放
-        // loop: true, // 循环点击
+        loop: true, // 循环点击
         effect: "cube",
         cubeEffect: {
           slideShadows: true,
@@ -247,26 +247,31 @@ export default {
   },
   methods: {
     init() {
-      this.axios.get("/user/miPhone").then((res) => {
+      this.axios.get("/user/index_miPhone").then((res) => {
         this.phoneList = [res.list.slice(0, 4), res.list.slice(4, 8)];
+        console.log("index.vue_init_phoneList");
         console.log(this.phoneList);
       });
     },
     addCart(id) {
       this.showModal = true;
       this.tempId = id;
-      // this.axios
-      //   .post("/carts", {
-      //     productId: id,
-      //     selected: true,
-      //   })
-      //   .then((res) => {})
-      //   .catch(() => {
-      //     this.showModal = true;
-      //   });
+      this.axios
+        .post("/cart", {
+          productId: id,
+          selected: true,
+        })
+        .then((res) => {
+          this.showModal = true;
+          this.$store.dispatch("saveCartCount", res.cartTotalQuantity);
+        })
+        .catch(() => {
+          this.showModal = true;
+        });
     },
     goToCart() {
       this.$router.push("/cart");
+      // window.location.href = "/#/cart";
     },
   },
 };

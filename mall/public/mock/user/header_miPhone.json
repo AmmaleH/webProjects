@@ -1,0 +1,43 @@
+{
+    "status": 0,
+    "data": {
+        "list": [
+            {
+                "id": 1,
+                "img": "/imgs/header/mixfold.webp",
+                "name": "小米MIX FOLD",
+                "price": "9999元起"
+            },
+            {
+                "id": 2,
+                "img": "/imgs/header/mi11Ultra.webp",
+                "name": "小米11 Ultra",
+                "price": "5499元起"
+            },
+            {
+                "id": 3,
+                "img": "/imgs/header/mi11pro.webp",
+                "name": "小米11 Pro",
+                "price": "4499元起"
+            },
+            {
+                "id": 4,
+                "img": "/imgs/header/mi11Young.webp",
+                "name": "小米11 青春版",
+                "price": "2099元起"
+            },
+            {
+                "id": 5,
+                "img": "/imgs/header/mi10s.webp",
+                "name": "小米10S",
+                "price": "2999元起"
+            },
+            {
+                "id": 6,
+                "img": "/imgs/header/mi11.webp",
+                "name": "小米11",
+                "price": "3799元起"
+            }
+        ]
+    }
+}

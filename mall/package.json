@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-infinite-scroll": "^2.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.0",
@@ -18,11 +19,13 @@
     "@vue/cli-service": "^4.5.0",
     "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
-    "element-ui": "^2.15.3",
+    "babel-plugin-component": "^1.1.1",
+    "element-ui": "^2.15.5",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "mockjs": "^1.1.0",
     "node-sass": "^4.14.0",
+    "qrcode": "^1.4.4",
     "sass-loader": "^8.0.0",
     "swiper": "^6.8.0",
     "vue-awesome-swiper": "^4.1.1",

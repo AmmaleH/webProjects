@@ -1,0 +1,43 @@
+{
+    "status": 0,
+    "data": {
+        "list": [
+            {
+                "id": 1,
+                "img": "/imgs/header/redmiNote10Pro.webp",
+                "name": "Redmi Note 10 Pro",
+                "price": "1599元起"
+            },
+            {
+                "id": 2,
+                "img": "/imgs/header/redmiNote10.webp",
+                "name": "Redmi Note 10 5G",
+                "price": "1099元起"
+            },
+            {
+                "id": 3,
+                "img": "/imgs/header/k40GamePro.webp",
+                "name": "K40 游戏增强版",
+                "price": "1999元起"
+            },
+            {
+                "id": 4,
+                "img": "/imgs/header/k40Pro.webp",
+                "name": "K40 Pro 系列",
+                "price": "2499元起"
+            },
+            {
+                "id": 5,
+                "img": "/imgs/header/redmiK40.webp",
+                "name": "Redmi K40",
+                "price": "1999元起"
+            },
+            {
+                "id": 6,
+                "img": "/imgs/header/redmiNote9.webp",
+                "name": "Redmi Note 9 4G",
+                "price": "899元起"
+            }
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "status": 0,
+    "data": [
+        {
+            "id": 0,
+            "name": "小米11",
+            "subtitle": "2021轻装上阵",
+            "price": 3799,
+            "imgs": [
+                "/imgs/product/product-bg-mi11-1.jpg",
+                "/imgs/product/product-bg-mi11-2.png",
+                "/imgs/product/product-bg-mi11-3.png"
+            ],
+            "introduce": [
+                "全新骁龙888",
+                "2K AMOLED",
+                "哈曼卡顿",
+                "1亿像素",
+                "4600mAh + 55W 有线闪充"
+            ]
+        }
+    ]
+}

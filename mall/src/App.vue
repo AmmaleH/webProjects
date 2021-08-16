@@ -6,7 +6,7 @@
 
 <script>
 // import storage from "./storage/index";
-
+// import { mapActions } from "vuex";
 export default {
   name: "App",
   components: {},
@@ -41,9 +41,32 @@ export default {
     // mockjs （js实现的，可以拦截数据、请求）
     // 没有发生真实的请求，在发请求的时候在代码层面就拦截到了，直接返回数据
     this.axios.get("/user/login").then((res) => {
-      this.res = res;
+      console.log("App.vue_mounted: ");
       console.log(res);
+      this.res = res;
     });
+    this.getUser();
+    this.getCartCount();
+  },
+  methods: {
+    getUser() {
+      this.axios.get("/user/login").then((res) => {
+        console.log("App.vue_getUser: ");
+        console.log(res);
+        this.$store.dispatch("saveUserName", res.username);
+        // this.saveUserName(res.username);
+      });
+    },
+    getCartCount() {
+      this.axios.get("/user/cartCount").then((res) => {
+        console.log("App.vue_getCartCount: ");
+        console.log(res);
+        this.$store.dispatch("saveCartCount", res.cartCount);
+        // res对应的json: { status:0, data:0 }
+        // this.saveCartCount(res.data);
+      });
+    },
+    // ...mapActions(["saveUserName", "saveCartCount"]),
   },
 };
 </script>
